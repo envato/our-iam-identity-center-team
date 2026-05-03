@@ -1,6 +1,12 @@
 # Temporary elevated access management (TEAM) for AWS IAM Identity Center
-This repository contains the source code for deploying TEAM application.
 
+## Envato notes
+This repository is a fork of the aws-samples repository aws-samples/iam-identity-center-tea, it contains the source code for deploying TEAM application.
+
+We  have tailored it a little for our needs, we deploy via terraform, see deployment/terraform), rather than cloudformation and have github actions configured (see .github) and besides a couple of minor cosmetic changes to src/components/Requests/Request.js the repository is in pristine state.   You should be able to merge upstream changes fairly easily.
+
+
+## Original Intro
 TEAM is an open source solution that integrates with AWS IAM Identity Center and allows you to manage and monitor, time-bound elevated access to your multi-account AWS environment at scale.
 
 The solution is a custom application that allows users to **request access to an AWS account** only when it is needed and only **for a specific period of time**. Once the time period has elapsed, elevated access is automatically removed.
