@@ -292,7 +292,7 @@ function Request(props) {
       error = true;
     }
     if ((!ticketNo && ticketRequired) || !/^[a-zA-Z0-9]+$/.test(ticketNo[0])) {
-      setTicketError("Enter valid change management ticket number");
+      setTicketError("Enter Jira ticket number");
       error = true;
     }
     return error;
@@ -508,7 +508,7 @@ function Request(props) {
             <FormField
               label="Ticket no"
               stretch
-              description="Elevated request ticket system number"
+              description="Jira ticket number"
               errorText={ticketError}
             >
               <Input
