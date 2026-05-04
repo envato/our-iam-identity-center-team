@@ -15,7 +15,7 @@
 #!/usr/bin/env bash
 set -xe
 
-. "./parameters.sh"
+. "./parameters-staging.sh"
 
 if [ -z "$TEAM_ACCOUNT" ]; then 
   export AWS_PROFILE=$ORG_MASTER_PROFILE
@@ -23,134 +23,55 @@ else
   export AWS_PROFILE=$TEAM_ACCOUNT_PROFILE
 fi
 
-if [ -z "$SECRET_NAME" ]; then
-  git remote remove origin
-  git remote add origin codecommit::$REGION://team-idc-app
-  git remote add team https://github.com/aws-samples/iam-identity-center-team.git
-  git pull team main
-
-  if [[ ! -z "$TAGS" ]]; then
-    if [[ ! -z "$UI_DOMAIN" ]]; then
-      aws cloudformation deploy --region $REGION --template-file template.yml \
-        --stack-name TEAM-IDC-APP \
-        --parameter-overrides \
-          Login=$IDC_LOGIN_URL \
-          CloudTrailAuditLogs=$CLOUDTRAIL_AUDIT_LOGS \
-          teamAdminGroup="$TEAM_ADMIN_GROUP" \
-          teamAuditGroup="$TEAM_AUDITOR_GROUP" \
-          tags="$TAGS" \
-          teamAccount="$TEAM_ACCOUNT" \
-          cacheTTL=$CACHE_TTL \
-          customAmplifyDomain="$UI_DOMAIN" \
-        --tags $TAGS \
-        --no-fail-on-empty-changeset --capabilities CAPABILITY_NAMED_IAM
-    else
-      aws cloudformation deploy --region $REGION --template-file template.yml \
-        --stack-name TEAM-IDC-APP \
-        --parameter-overrides \
-          Login=$IDC_LOGIN_URL \
-          CloudTrailAuditLogs=$CLOUDTRAIL_AUDIT_LOGS \
-          teamAdminGroup="$TEAM_ADMIN_GROUP" \
-          teamAuditGroup="$TEAM_AUDITOR_GROUP" \
-          tags="$TAGS" \
-          teamAccount="$TEAM_ACCOUNT" \
-          cacheTTL=$CACHE_TTL \
-        --tags $TAGS \
-        --no-fail-on-empty-changeset --capabilities CAPABILITY_NAMED_IAM
-    fi
+if [[ ! -z "$TAGS" ]]; then
+  if [[ ! -z "$UI_DOMAIN" ]]; then
+    aws cloudformation deploy --region $REGION --template-file template.yml \
+      --stack-name TEAM-IDC-APP \
+      --parameter-overrides \
+        Login=$IDC_LOGIN_URL \
+        CloudTrailAuditLogs=$CLOUDTRAIL_AUDIT_LOGS \
+        teamAdminGroup="$TEAM_ADMIN_GROUP" \
+        teamAuditGroup="$TEAM_AUDITOR_GROUP" \
+        tags="$TAGS" \
+        teamAccount="$TEAM_ACCOUNT" \
+        customAmplifyDomain="$UI_DOMAIN" \
+      --tags $TAGS \
+      --no-fail-on-empty-changeset --capabilities CAPABILITY_NAMED_IAM
   else
-    if [[ ! -z "$UI_DOMAIN" ]]; then
-      aws cloudformation deploy --region $REGION --template-file template.yml \
-        --stack-name TEAM-IDC-APP \
-        --parameter-overrides \
-          Login=$IDC_LOGIN_URL \
-          CloudTrailAuditLogs=$CLOUDTRAIL_AUDIT_LOGS \
-          teamAdminGroup="$TEAM_ADMIN_GROUP" \
-          teamAuditGroup="$TEAM_AUDITOR_GROUP" \
-          teamAccount="$TEAM_ACCOUNT" \
-          cacheTTL=$CACHE_TTL \
-          tags="$TAGS" \
-          customAmplifyDomain="$UI_DOMAIN" \
-        --no-fail-on-empty-changeset --capabilities CAPABILITY_NAMED_IAM
-    else
-      aws cloudformation deploy --region $REGION --template-file template.yml \
-        --stack-name TEAM-IDC-APP \
-        --parameter-overrides \
-          Login=$IDC_LOGIN_URL \
-          CloudTrailAuditLogs=$CLOUDTRAIL_AUDIT_LOGS \
-          teamAdminGroup="$TEAM_ADMIN_GROUP" \
-          teamAuditGroup="$TEAM_AUDITOR_GROUP" \
-          teamAccount="$TEAM_ACCOUNT" \
-          cacheTTL=$CACHE_TTL \
-        --no-fail-on-empty-changeset --capabilities CAPABILITY_NAMED_IAM
-    fi
+    aws cloudformation deploy --region $REGION --template-file template.yml \
+      --stack-name TEAM-IDC-APP \
+      --parameter-overrides \
+        Login=$IDC_LOGIN_URL \
+        CloudTrailAuditLogs=$CLOUDTRAIL_AUDIT_LOGS \
+        teamAdminGroup="$TEAM_ADMIN_GROUP" \
+        teamAuditGroup="$TEAM_AUDITOR_GROUP" \
+        tags="$TAGS" \
+        teamAccount="$TEAM_ACCOUNT" \
+      --tags $TAGS \
+      --no-fail-on-empty-changeset --capabilities CAPABILITY_NAMED_IAM
   fi
-
-  git push origin main
-  git remote remove team
 else
-  if [[ ! -z "$TAGS" ]]; then
-    if [[ ! -z "$UI_DOMAIN" ]]; then
-      aws cloudformation deploy --region $REGION --template-file template.yml \
-        --stack-name TEAM-IDC-APP \
-        --parameter-overrides \
-          Login=$IDC_LOGIN_URL \
-          CloudTrailAuditLogs=$CLOUDTRAIL_AUDIT_LOGS \
-          teamAdminGroup="$TEAM_ADMIN_GROUP" \
-          teamAuditGroup="$TEAM_AUDITOR_GROUP" \
-          tags="$TAGS" \
-          teamAccount="$TEAM_ACCOUNT" \
-          customAmplifyDomain="$UI_DOMAIN" \
-          cacheTTL=$CACHE_TTL \
-          customRepository="Yes" \
-          customRepositorySecretName="$SECRET_NAME" \
-        --tags $TAGS \
-        --no-fail-on-empty-changeset --capabilities CAPABILITY_NAMED_IAM
-    else
-      aws cloudformation deploy --region $REGION --template-file template.yml \
-        --stack-name TEAM-IDC-APP \
-        --parameter-overrides \
-          Login=$IDC_LOGIN_URL \
-          CloudTrailAuditLogs=$CLOUDTRAIL_AUDIT_LOGS \
-          teamAdminGroup="$TEAM_ADMIN_GROUP" \
-          teamAuditGroup="$TEAM_AUDITOR_GROUP" \
-          tags="$TAGS" \
-          teamAccount="$TEAM_ACCOUNT" \
-          cacheTTL=$CACHE_TTL \
-          customRepository="Yes" \
-          customRepositorySecretName="$SECRET_NAME" \
-        --tags $TAGS \
-        --no-fail-on-empty-changeset --capabilities CAPABILITY_NAMED_IAM
-    fi
+  if [[ ! -z "$UI_DOMAIN" ]]; then
+    aws cloudformation deploy --region $REGION --template-file template.yml \
+      --stack-name TEAM-IDC-APP \
+      --parameter-overrides \
+        Login=$IDC_LOGIN_URL \
+        CloudTrailAuditLogs=$CLOUDTRAIL_AUDIT_LOGS \
+        teamAdminGroup="$TEAM_ADMIN_GROUP" \
+        teamAuditGroup="$TEAM_AUDITOR_GROUP" \
+        teamAccount="$TEAM_ACCOUNT" \
+        tags="$TAGS" \
+        customAmplifyDomain="$UI_DOMAIN" \
+      --no-fail-on-empty-changeset --capabilities CAPABILITY_NAMED_IAM
   else
-    if [[ ! -z "$UI_DOMAIN" ]]; then
-      aws cloudformation deploy --region $REGION --template-file template.yml \
-        --stack-name TEAM-IDC-APP \
-        --parameter-overrides \
-          Login=$IDC_LOGIN_URL \
-          CloudTrailAuditLogs=$CLOUDTRAIL_AUDIT_LOGS \
-          teamAdminGroup="$TEAM_ADMIN_GROUP" \
-          teamAuditGroup="$TEAM_AUDITOR_GROUP" \
-          teamAccount="$TEAM_ACCOUNT" \
-          customRepository="Yes" \
-          customRepositorySecretName="$SECRET_NAME" \
-          tags="$TAGS" \
-          customAmplifyDomain="$UI_DOMAIN" \
-          cacheTTL=$CACHE_TTL \
-        --no-fail-on-empty-changeset --capabilities CAPABILITY_NAMED_IAM
-    else
-      aws cloudformation deploy --region $REGION --template-file template.yml \
-        --stack-name TEAM-IDC-APP \
-        --parameter-overrides \
-          Login=$IDC_LOGIN_URL \
-          CloudTrailAuditLogs=$CLOUDTRAIL_AUDIT_LOGS \
-          teamAdminGroup="$TEAM_ADMIN_GROUP" \
-          teamAuditGroup="$TEAM_AUDITOR_GROUP" \
-          customRepository="Yes" \
-          customRepositorySecretName="$SECRET_NAME" \
-          teamAccount="$TEAM_ACCOUNT" \
-          cacheTTL=$CACHE_TTL \
-        --no-fail-on-empty-changeset --capabilities CAPABILITY_NAMED_IAM
-    fi
+    aws cloudformation deploy --region $REGION --template-file template.yml \
+      --stack-name TEAM-IDC-APP \
+      --parameter-overrides \
+        Login=$IDC_LOGIN_URL \
+        CloudTrailAuditLogs=$CLOUDTRAIL_AUDIT_LOGS \
+        teamAdminGroup="$TEAM_ADMIN_GROUP" \
+        teamAuditGroup="$TEAM_AUDITOR_GROUP" \
+        teamAccount="$TEAM_ACCOUNT" \
+      --no-fail-on-empty-changeset --capabilities CAPABILITY_NAMED_IAM
   fi
 fi

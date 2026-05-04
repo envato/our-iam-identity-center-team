@@ -1,6 +1,6 @@
 resource "aws_amplify_app" "team_idc_app" {
   name                 = "TEAM-IDC-APP"
-  repository           = "https://github.com/envato/team-idc-app"
+  repository           = "https://github.com/envato/our-iam-identity-center-team"
   iam_service_role_arn = var.service_role
   access_token         = var.access_token != null ? var.access_token : null
 
@@ -71,11 +71,11 @@ resource "aws_amplify_app" "team_idc_app" {
     )
   }
 
-  lifecycle {
-    ignore_changes = [
-      access_token,
-    ]
-  }
+  #lifecycle {
+  #  ignore_changes = [
+  #    access_token,
+  #  ]
+  #}
 }
 
 resource "aws_amplify_branch" "branch" {
