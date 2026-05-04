@@ -10,17 +10,15 @@ resource "aws_amplify_app" "team_idc_app" {
       phases:
         preBuild:
           commands:
-            - '# 14.0.0 Enforces SSL on S3 deployment bucket'
-            - npm i -g @aws-amplify/cli@14.0.0
+            - '# > 14.0.0 Enforces SSL on S3 deployment bucket'
+            - npm i -g @aws-amplify/cli@14.3.0
             - '# Update deployment parameters with helper script'
             - node parameters.js
         build:
           commands:
             - npm i -S graphql-ttl-transformer
-            - '# Execute Amplify CLI with the helper script'
-            - update-alternatives --install /usr/bin/python3 python3 /usr/local/bin/python3.9 11
-            - /usr/local/bin/pip3.9 install --user pipenv==2023.6.12
             - export PATH=$HOME/.local/bin:$PATH
+            - pip3 install --user pipenv==2023.6.12
             - amplifyPush --simple --allow-destructive-graphql-schema-update
     frontend:
       phases:
@@ -54,29 +52,14 @@ resource "aws_amplify_app" "team_idc_app" {
 
   environment_variables = {
     AMPLIFY_DESTRUCTIVE_UPDATES = "true"
+    AMPLIFY_DIFF_BACKEND        = "false"
     CLOUDTRAIL_AUDIT_LOGS       = var.cloudtrail_audit_logs
     SSO_LOGIN                   = var.sso_login
     TAGS                        = var.tags
     TEAM_ACCOUNT                = var.team_account
     TEAM_ADMIN_GROUP            = var.team_admin_group
     TEAM_AUDITOR_GROUP          = var.team_auditor_group
-    _LIVE_UPDATES = jsonencode(
-      [
-        {
-          name    = "Amplify CLI"
-          pkg     = "@aws-amplify/cli"
-          type    = "npm"
-          version = "latest"
-        },
-      ]
-    )
   }
-
-  #lifecycle {
-  #  ignore_changes = [
-  #    access_token,
-  #  ]
-  #}
 }
 
 resource "aws_amplify_branch" "branch" {
@@ -90,26 +73,14 @@ resource "aws_amplify_branch" "branch" {
   backend_environment_arn = var.backend_deployment_artifacts != null ? aws_amplify_backend_environment.amplify_backend_environment[0].arn : null
 
   environment_variables = {
-    AMPLIFY_DESTRUCTIVE_UPDATES = "true"
     CLOUDTRAIL_AUDIT_LOGS       = var.cloudtrail_audit_logs
     SSO_LOGIN                   = var.sso_login
     TAGS                        = var.tags
     TEAM_ACCOUNT                = var.team_account
     TEAM_ADMIN_GROUP            = var.team_admin_group
     TEAM_AUDITOR_GROUP          = var.team_auditor_group
-    _LIVE_UPDATES = jsonencode(
-      [
-        {
-          name    = "Amplify CLI"
-          pkg     = "@aws-amplify/cli"
-          type    = "npm"
-          version = "latest"
-        },
-      ]
-    )
     AMPLIFY_BACKEND_APP_ID = aws_amplify_app.team_idc_app.id
     USER_BRANCH            = var.branch_env
-    _CUSTOM_IMAGE          = "amplify:al2"
     AMPLIFY_CUSTOM_DOMAIN  = var.custom_domain
   }
 }
