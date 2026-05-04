@@ -1,0 +1,18 @@
+name: SOX compliance checks
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+    branches:
+      - main
+
+jobs:
+  sox-compliance:
+    uses: envato/github-sox-workflow/.github/workflows/sox-compliance-pipeline-configuration.yaml@main
+    with:
+      PR_BODY: ${{ github.event.pull_request.body }}
+      PR_TITLE: ${{ github.event.pull_request.title }}

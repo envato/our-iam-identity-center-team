@@ -1,0 +1,278 @@
+version: 2
+updates:
+  # npm Dependencies for Root Directory
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "[EN-2664] "
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      security-only:
+        applies-to: security-updates
+        update-types:
+          - "minor"
+          - "patch"
+
+  # npm Dependencies for Amplify Backend
+  - package-ecosystem: "npm"
+    directory: "/amplify/backend"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "[EN-2664] "
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      security-only:
+        applies-to: security-updates
+        update-types:
+          - "minor"
+          - "patch"
+
+  # npm Dependencies for Specific Amplify Backend Functions
+  - package-ecosystem: "npm"
+    directory: "/amplify/backend/function/teamStatus/src"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "[EN-2664] "
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      security-only:
+        applies-to: security-updates
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "npm"
+    directory: "/amplify/backend/function/teamgetLogs/src"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "[EN-2664] "
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      security-only:
+        applies-to: security-updates
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "npm"
+    directory: "/amplify/backend/function/teamqueryLogs/src"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "[EN-2664] "
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      security-only:
+        applies-to: security-updates
+        update-types:
+          - "minor"
+          - "patch"
+
+  # Python Dependencies for Each Amplify Function Directory
+  - package-ecosystem: "pip"
+    directory: "/amplify/backend/function/teamgetUserPolicy"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "[EN-2664] "
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      security-only:
+        applies-to: security-updates
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "pip"
+    directory: "/amplify/backend/function/teamListGroups"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "[EN-2664] "
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      security-only:
+        applies-to: security-updates
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "pip"
+    directory: "/amplify/backend/function/teamNotifications"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "[EN-2664] "
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      security-only:
+        applies-to: security-updates
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "pip"
+    directory: "/amplify/backend/function/teamgetGroups"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "[EN-2664] "
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      security-only:
+        applies-to: security-updates
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "pip"
+    directory: "/amplify/backend/function/teamgetMgmtAccountDetails"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "[EN-2664] "
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      security-only:
+        applies-to: security-updates
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "pip"
+    directory: "/amplify/backend/function/teamPublishOUs"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "[EN-2664] "
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      security-only:
+        applies-to: security-updates
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "pip"
+    directory: "/amplify/backend/function/teamapplicationboto3layer/lib/python"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "[EN-2664] "
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      security-only:
+        applies-to: security-updates
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "pip"
+    directory: "/amplify/backend/function/teamGetPermissionSets"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "[EN-2664] "
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      security-only:
+        applies-to: security-updates
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "pip"
+    directory: "/amplify/backend/function/teamgetEntitlement"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "[EN-2664] "
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      security-only:
+        applies-to: security-updates
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "pip"
+    directory: "/amplify/backend/function/teamRouter"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "[EN-2664] "
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      security-only:
+        applies-to: security-updates
+        update-types:
+          - "minor"
+          - "patch"
+
+  # Terraform Dependencies for Production and Staging
+  - package-ecosystem: "terraform"
+    directory: "/deployment/terraform/prod"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "[EN-2664] "
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      security-only:
+        applies-to: security-updates
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "terraform"
+    directory: "/deployment/terraform/staging"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "[EN-2664] "
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      security-only:
+        applies-to: security-updates
+        update-types:
+          - "minor"
+          - "patch"

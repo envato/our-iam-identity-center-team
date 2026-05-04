@@ -1,0 +1,7 @@
+# https://help.github.com/en/articles/about-code-owners
+
+*  @envato/gpet
+
+# Files related to SOX compliance can only be modified by SOX admins
+.github/workflows/sox-compliance.yaml @envato/sox-github-org-admins 
+.github/CODEOWNERS @envato/sox-github-org-admins 

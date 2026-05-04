@@ -1,0 +1,5 @@
+custom_domain    = "team.platform.envato.net"
+ses_domain       = "team.aws.platform.envato.net"
+branch_env       = "main"
+hosted_zone_id   = "Z22LU634THHUR5"
+route53_role_arn = "arn:aws:iam::909551307430:role/Route53ManagementRole"
