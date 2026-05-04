@@ -75,6 +75,10 @@ function App() {
       const payload = userData.signInUserSession.idToken.payload;
       setcognitoGroups(payload["cognito:groups"]);
       setUserId(payload.userId);
+      console.log("ID token payload", payload);
+      console.log("groupIds", payload.groupIds);
+      console.log("groups", payload.groups);
+      console.log("cognito groups", payload["cognito:groups"]);
       setGroupIds((payload.groupIds).split(','));
       setGroups((payload.groups).split(','));
       setLoading(false);
