@@ -10,8 +10,8 @@ resource "aws_amplify_app" "team_idc_app" {
       phases:
         preBuild:
           commands:
-            - '# 12.0.1 Updates auth lambdas to node18'
-            - npm i -g @aws-amplify/cli@12.10.1
+            - '# 14.0.0 Enforces SSL on S3 deployment bucket'
+            - npm i -g @aws-amplify/cli@14.0.0
             - '# Update deployment parameters with helper script'
             - node parameters.js
         build:
@@ -20,6 +20,7 @@ resource "aws_amplify_app" "team_idc_app" {
             - '# Execute Amplify CLI with the helper script'
             - update-alternatives --install /usr/bin/python3 python3 /usr/local/bin/python3.9 11
             - /usr/local/bin/pip3.9 install --user pipenv==2023.6.12
+            - export PATH=$HOME/.local/bin:$PATH
             - amplifyPush --simple --allow-destructive-graphql-schema-update
     frontend:
       phases:
